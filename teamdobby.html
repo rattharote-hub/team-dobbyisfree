@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>teamdobby</title>
+
+    <style>
+        /* ================= GLOBAL ================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ffe0f0, #ffc1d9, #ffb3d1);
+            min-height: 100vh;
+            padding: 40px 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Soft Pattern Floating Bubbles */
+        body::before {
+            content: "";
+            position: absolute;
+            top: -100px;
+            left: -100px;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.25);
+            border-radius: 50%;
+            filter: blur(80px);
+        }
+
+        body::after {
+            content: "";
+            position: absolute;
+            bottom: -150px;
+            right: -150px;
+            width: 450px;
+            height: 450px;
+            background: rgba(255, 180, 210, 0.3);
+            border-radius: 50%;
+            filter: blur(120px);
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 5;
+        }
+
+        /* ================= HEADER ================= */
+        header {
+            text-align: center;
+            margin-bottom: 70px;
+            animation: fadeDown 1s ease;
+        }
+
+        @keyframes fadeDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #ff5da2, #ff7fb7, #ff9bcc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(255, 105, 180, 0.4);
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: #b2407a;
+            opacity: 0.9;
+        }
+
+        /* ================= PROFILE LAYOUT ================= */
+        .profiles {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 45px;
+        }
+
+        .profile-card {
+            width: 100%;
+            max-width: 480px;
+            padding: 35px;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 155, 200, 0.4);
+            box-shadow: 0 15px 45px rgba(255, 120, 160, 0.25);
+            transition: 0.4s ease;
+            animation: floatUp 1s ease;
+        }
+
+        @keyframes floatUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .profile-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 25px 60px rgba(255, 100, 160, 0.35);
+        }
+
+        /* ================= PROFILE HEADER ================= */
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            gap: 20px;
+        }
+
+        .avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #ff9bcf;
+            box-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
+            animation: glow 3s infinite alternate;
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 15px rgba(255, 105, 180, 0.4); }
+            to { box-shadow: 0 0 30px rgba(255, 105, 180, 0.8); }
+        }
+
+        .profile-info h2 {
+            font-size: 1.9rem;
+            color: #b12a78;
+            margin-bottom: 6px;
+        }
+
+        .role {
+            font-size: 1.1rem;
+            color: #d63687;
+        }
+
+        .tagline {
+            color: #b94670;
+            font-style: italic;
+            opacity: 0.8;
+        }
+
+        /* ================= DETAILS ================= */
+        .profile-details h3 {
+            font-size: 1.4rem;
+            margin: 20px 0 12px;
+            color: #b92b78;
+        }
+
+        .skills {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .skill {
+            padding: 7px 16px;
+            background: linear-gradient(45deg, #ff7db3, #ff5d97);
+            color: white;
+            font-size: 0.9rem;
+            border-radius: 25px;
+            box-shadow: 0 5px 15px rgba(255, 100, 160, 0.35);
+        }
+
+        /* ================= CONTACT BUTTONS ================= */
+        .contact {
+            margin-top: 25px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .contact a {
+            background: linear-gradient(45deg, #ff7db3, #ff5096);
+            color: white;
+            padding: 10px 18px;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: 0.3s;
+            font-size: 0.9rem;
+            box-shadow: 0 5px 15px rgba(255, 100, 180, 0.35);
+        }
+
+        .contact a:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(45deg, #ff5096, #ff7db3);
+        }
+
+        /* ================= PARTICLE EFFECT ================= */
+        .particle {
+            position: fixed;
+            top: -10vh;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            pointer-events: none;
+            opacity: 0.8;
+            z-index: 9999;
+            animation: fall linear infinite;
+        }
+
+        .particle.heart::before { content: "💗"; font-size: 22px; }
+        .particle.sakura::before { content: "🌸"; font-size: 22px; }
+        .particle.spark::before  { content: "✦"; font-size: 18px; color: white; }
+
+        @keyframes fall {
+            0%   { transform: translateY(-10vh) translateX(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) translateX(40px) rotate(360deg); opacity: 0; }
+        }
+
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.8rem; }
+            .profile-header { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Dobby is Free</h1>
+        </header>
+
+        <div class="profiles">
+
+            <!-- ================= PROFILE 1 ================= -->
+            <div class="profile-card">
+                <div class="profile-header">
+                    <img src="C:\Users\Atc\Downloads\937.jpg" class="avatar">
+                    <div class="profile-info">
+                        <h2>Rattharote Lertrattanasarote</h2>
+                        <p class="role">ใช้ชีวิตไปวันๆ</p>
+                        <p class="tagline">"เปลี่ยนโค้ดให้เป็นฝันร้าย"</p>
+                    </div>
+                </div>
+
+                <div class="profile-details">
+                    <h3>เกี่ยวกับฉัน</h3>
+                    <p>ทำไรไม่เป็นเลย</p>
+
+                    <h3>ทักษะ</h3>
+                    <div class="skills">
+                        <span class="skill">HTML/CSS</span>
+                        <span class="skill">JavaScript</span>
+                        <span class="skill">Python</span>
+                        <span class="skill">UI/UX</span>
+                        <span class="skill">SQL</span>
+                        <span class="skill">CMD</span>
+                    </div>
+
+                    <h3>ข้อมูลเพิ่มเติม</h3>
+                    <ul style="margin-left: 20px;">
+                        <li>อายุ: 17 ปี</li>
+                        <li>แผนก: Information Technology</li>
+                        <li>สิ่งที่ชอบ: เล่นเกมและเขียนโค้ด</li>
+                    </ul>
+
+                    <div class="contact">
+                        <a href="#">GitHub</a>
+                        <a href="#">LinkedIn</a>
+                        <a href="#">Email</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= PROFILE 2 ================= -->
+            <div class="profile-card">
+                <div class="profile-header">
+                    <img src="C:\Users\Atc\Downloads\S__14819341.jpg" class="avatar">
+                    <div class="profile-info">
+                        <h2>Phoncharat Phuangngoen</h2>
+                        <p class="role">CEO</p>
+                        <p class="tagline">"ผมไม่รู้"</p>
+                    </div>
+                </div>
+
+                <div class="profile-details">
+                    <h3>เกี่ยวกับฉัน</h3>
+                    <p>nongnoey is free</p>
+
+                    <h3>ทักษะ</h3>
+                    <div class="skills">
+                        <span class="skill">cry a lot</span>
+                    </div>
+
+                    <h3>ข้อมูลเพิ่มเติม</h3>
+                    <ul style="margin-left: 20px;">
+                        <li>อายุ: 18 ปี</li>
+                        <li>แผนก: Information Technology</li>
+                        <li>สิ่งที่ชอบ: fanfiction gay</li>
+                    </ul>
+
+                    <div class="contact">
+                        <a href="#">GitHub</a>
+                        <a href="#">LinkedIn</a>
+                        <a href="#">Email</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ================= PARTICLE SCRIPT ================= -->
+    <script>
+        function createParticle(type) {
+            const p = document.createElement('div');
+            p.classList.add('particle', type);
+            p.style.left = Math.random() * 100 + "vw";
+            p.style.animationDuration = (4 + Math.random() * 4) + "s";
+            document.body.appendChild(p);
+            setTimeout(() => p.remove(), 8000);
+        }
+
+        setInterval(() => createParticle("heart"), 450);
+        setInterval(() => createParticle("sakura"), 650);
+        setInterval(() => createParticle("spark"), 300);
+    </script>
+
+</body>
+</html>
